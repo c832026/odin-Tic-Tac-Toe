@@ -1,15 +1,16 @@
 // Game module
-const game = (function() {
-    
+const game = (function() {   
     // Factory function for create players
     const Player = function(name, symbol) {
         let plays = [];
         return {name, symbol, plays};
     }
-    
-    // Use player factory function to create two player
-    const player1 = Player('player1', '&#10005');
-    const player2 = Player('player2', 'O');
+
+    // Prompt and use player factory function to create two players
+    let playerName = prompt('Player1\'s name? (Represent "X")');
+    const player1 = Player(playerName, '&#10005');
+    playerName = prompt('Player2\'s name? (Represent "O")');
+    const player2 = Player(playerName, 'O');
     
     // Set default current player to player1
     let currentPlayer = player1;
@@ -18,15 +19,16 @@ const game = (function() {
     const gameBoard = (function() {
         const CONTAINER = document.querySelector('.game-container');
         const RESULT = document.querySelector('#result');
-    
-        // Gameboard private property for create an array of 9, initialized with null
-        const boardArray = (function() {
+        let boardArray = createBoardArray();
+
+        // Gameboard private method for create an array of 9, initialized with null
+        function createBoardArray() {
             let board = new Array(9);
             for (let i = 0, length = board.length; i < length; i++) {
                 board[i] = null;
             }
             return board;
-        })();
+        };
 
         // Gameboard private method, each square's event listener method for set player's play
         const setPlay = function() {
@@ -62,7 +64,7 @@ const game = (function() {
             for (const winRow of winRows) {
                 isWin = winRow.every(index => currentPlayer.plays.includes(index));
                 if (isWin) {
-                    RESULT.textContent = `${currentPlayer.name} wins, with ${winRow}`;
+                    RESULT.textContent = `${currentPlayer.name} win!`;
                     const squares = document.querySelectorAll('.square');
                     for (square of squares) {
                         square.removeEventListener('click', setPlay);
@@ -78,9 +80,20 @@ const game = (function() {
                 }
             }
         };
+
+        // Gameboard private method for reset the game
+        const reset = function () {
+            currentPlayer = player1;
+            player1.plays = [];
+            player2.plays = [];
+            boardArray = createBoardArray();
+            RESULT.textContent = '';
+            init();
+        }
     
         // Gameboard public method for initialize and render the board
         const init = function() {
+
             // Clean everything in the container
             CONTAINER.innerHTML = '';
 
@@ -94,6 +107,10 @@ const game = (function() {
                 squareNode.addEventListener('click', setPlay);
                 CONTAINER.appendChild(squareNode);
             }
+
+            // Add event listener to reset button
+            const resetBtn = document.querySelector('#reset>button');
+            resetBtn.addEventListener('click', reset, {once: true});
         }
     
         return {init};

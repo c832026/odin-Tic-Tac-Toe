@@ -33,5 +33,23 @@ h1 {
 #result {
     text-align: center;
     font-size: xxx-large;
-    margin-top: 60px;
+    margin-top: 20px;
+}
+
+#reset {
+    text-align: center;
+    width: 100%;
+    position: absolute;
+    bottom: 10px;
+}
+
+#reset>button {
+    padding: 20px 100px;
+    font-size: x-large;
+    background-color: rgb(201, 201, 201);
+    border: 5px solid black;
+}
+
+#reset>button:active {
+    background-color: grey;
 }
