@@ -1,0 +1,37 @@
+html {
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+h1 {
+    text-align: center;
+}
+
+.game-container {
+    height: 600px;
+    width: 600px;
+    margin: 0 auto;
+    margin-top: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    border: 1px solid black;
+}
+
+.square {
+    width: 33.33%;
+    height: 33.33%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 120px;
+    border: 1px solid black;
+}
+
+#result {
+    text-align: center;
+    font-size: xxx-large;
+    margin-top: 60px;
+}
